@@ -11,7 +11,7 @@ This project explores how factors like time spent, game phase, piece moved in a 
 
 ![Dashboard Screenshot](images/dashboard.png)
 
-[🔗 View the Interactive Dashboard on Tableau Public]([https://public.tableau.com/views/your-dashboard-link](https://public.tableau.com/views/ChessAnalysis_17467234829240/ChessAnalysis?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link))
+[🔗 View the Interactive Dashboard on Tableau Public](https://public.tableau.com/views/ChessAnalysis_17467234829240/ChessAnalysis?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
 
 ## 📁 Tools Used
 - **Python **: Data cleaning, Extracting PGN data, Stockfish analysis
