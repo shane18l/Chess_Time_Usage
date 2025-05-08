@@ -8,7 +8,7 @@ import seaborn as sns
 import glob
 import os
 
-engine_path = "stockfish-windows-x86-64-avx2.exe"
+engine_path = "Enter your engine path (stockfish.exe)"
 pgn_folder = "match_histories"
 pgn_files = glob.glob(os.path.join(pgn_folder, "*.pgn"))
 
@@ -57,10 +57,8 @@ def get_material(board):
 
 
 def read_games_from_file(pgn):
-    with chess.engine.SimpleEngine.popen_uci(engine_path) as engine:
-        
+    with chess.engine.SimpleEngine.popen_uci(engine_path) as engine:     
         while True:
-            
             game = chess.pgn.read_game(pgn)
             
             if game is None:
@@ -80,7 +78,6 @@ def read_games_from_file(pgn):
             score_before_move = info["score"]
 
             while node.variations:
-
                 move_maker = board.turn
                 next_node = node.variation(0)
                 comment = next_node.comment
@@ -117,10 +114,6 @@ def read_games_from_file(pgn):
                 else:
                     phase = "Middlegame"
 
-                
-            
-                
-
                 moves.append({
                     "Date": date,
                     "White": white,
@@ -156,50 +149,3 @@ df['Time Spent'] = -df.groupby(['Date', 'White', 'Black', 'Move By'])['Seconds R
 df['Time Spent'] = abs(df['Increment'] - abs(df['Time Spent']))
 df.to_csv("chess_moves_with_time.csv", index=False)
 
-######################### PLOTTING ##############################
-
-
-# df = pd.read_csv("chess_moves_with_time.csv")
-
-# df.dropna(subset=['Time Spent', 'Move Evaluation'], inplace=True)
-# df['Move Evaluation'] = df['Move Evaluation'].apply(lambda x: -10 if x < -10 else (0 if x > 0 else x))
-
-# username = "OkayKev"
-# df = df[((df['White'] == username) & (df['Move By'] == 'White')) |
-#         ((df['Black'] == username) & (df['Move By'] == 'Black'))]
-# # Show the first few rows of the prepared data
-# print(df[['Move', 'Time Spent', 'Move Evaluation']].head())
-
-# # Set plot style
-# sns.set(style="whitegrid")
-# sns.lmplot(data=df, 
-#            x='Time Spent', 
-#            y='Move Evaluation', 
-#            ci=None, 
-#            height=6,
-#            aspect=1.5,
-#            hue='Phase'
-#            )
-
-# # Scatter plot: Time Spent vs. Evaluation D
-
-# plt.title('Time Spent vs Move Evaluation Change')
-# plt.xlabel('Time Spent (seconds)')
-# plt.ylabel('Move Evaluation Change')
-# plt.ylim(-5, 1)
-# plt.xlim(0, 150)
-# plt.show()
-
-# grouped = df.groupby(['Moved Piece', 'Phase'])['Move Evaluation'].mean().reset_index()
-
-# # Plot it
-# plt.figure(figsize=(12, 6))
-# sns.barplot(data=grouped, x='Moved Piece', y='Move Evaluation', hue='Phase')
-# plt.title('Average Move Quality by Piece and Game Phase')
-# plt.ylabel('Average Move Evaluation (Higher is Better)')
-# plt.xlabel('Moved Piece')
-# plt.axhline(0, color='gray', linestyle='--')
-# plt.tight_layout()
-# plt.show()
-
-# df.to_csv("chess_moves_with_time.csv", index=False)
